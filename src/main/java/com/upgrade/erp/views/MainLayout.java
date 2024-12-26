@@ -81,7 +81,7 @@ public class MainLayout extends AppLayout {
         Div layout = new Div();
         layout.addClassNames(Display.FLEX, AlignItems.CENTER, Padding.Horizontal.LARGE);
 
-        H1 appName = new H1("PI-002|SISTEMA_ERP_UPGRADE");
+        H1 appName = new H1("UPGRADE");
         appName.addClassNames(Margin.Vertical.MEDIUM, Margin.End.AUTO, FontSize.LARGE);
         layout.add(appName);
 
@@ -104,8 +104,8 @@ public class MainLayout extends AppLayout {
 
     private MenuItemInfo[] createMenuItems() {
         return new MenuItemInfo[]{ //
-                new MenuItemInfo("ExampleGallery", LineAwesomeIcon.TH_LIST_SOLID.create(), ExampleGalleryView.class), //
-
+                new MenuItemInfo("ExampleGallery", LineAwesomeIcon.TH_LIST_SOLID.create(), ExampleGalleryView.class),
+                
         };
     }
 

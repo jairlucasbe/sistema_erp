@@ -1,4 +1,4 @@
-package com.upgrade.erp.views.examplegallery;
+package com.upgrade.erp.views.imagegallery;
 
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Image;
@@ -19,9 +19,9 @@ import com.vaadin.flow.theme.lumo.LumoUtility.Padding;
 import com.vaadin.flow.theme.lumo.LumoUtility.TextColor;
 import com.vaadin.flow.theme.lumo.LumoUtility.Width;
 
-public class ExampleGalleryViewCard extends ListItem {
+public class ImageGalleryViewCard extends ListItem {
 
-    public ExampleGalleryViewCard(String text, String url) {
+    public ImageGalleryViewCard(String text, String url) {
         addClassNames(Background.CONTRAST_5, Display.FLEX, FlexDirection.COLUMN, AlignItems.START, Padding.MEDIUM,
                 BorderRadius.LARGE);
 

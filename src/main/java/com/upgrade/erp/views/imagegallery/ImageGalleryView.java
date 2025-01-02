@@ -1,4 +1,4 @@
-package com.upgrade.erp.views.examplegallery;
+package com.upgrade.erp.views.imagegallery;
 
 import com.vaadin.flow.component.HasComponents;
 import com.vaadin.flow.component.HasStyle;
@@ -24,33 +24,33 @@ import com.vaadin.flow.theme.lumo.LumoUtility.Padding;
 import com.vaadin.flow.theme.lumo.LumoUtility.TextColor;
 import org.vaadin.lineawesome.LineAwesomeIconUrl;
 
-@PageTitle("ExampleGallery")
-@Route("")
-@Menu(order = 0, icon = LineAwesomeIconUrl.TH_LIST_SOLID)
-public class ExampleGalleryView extends Main implements HasComponents, HasStyle {
+@PageTitle("Image Gallery")
+@Route("image-gallery")
+@Menu(order = 1, icon = LineAwesomeIconUrl.TH_LIST_SOLID)
+public class ImageGalleryView extends Main implements HasComponents, HasStyle {
 
     private OrderedList imageContainer;
 
-    public ExampleGalleryView() {
+    public ImageGalleryView() {
         constructUI();
 
-        imageContainer.add(new ExampleGalleryViewCard("Snow mountains under stars",
+        imageContainer.add(new ImageGalleryViewCard("Snow mountains under stars",
                 "https://images.unsplash.com/photo-1519681393784-d120267933ba?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80"));
-        imageContainer.add(new ExampleGalleryViewCard("Snow covered mountain",
+        imageContainer.add(new ImageGalleryViewCard("Snow covered mountain",
                 "https://images.unsplash.com/photo-1512273222628-4daea6e55abb?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80"));
-        imageContainer.add(new ExampleGalleryViewCard("River between mountains",
+        imageContainer.add(new ImageGalleryViewCard("River between mountains",
                 "https://images.unsplash.com/photo-1536048810607-3dc7f86981cb?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=375&q=80"));
-        imageContainer.add(new ExampleGalleryViewCard("Milky way on mountains",
+        imageContainer.add(new ImageGalleryViewCard("Milky way on mountains",
                 "https://images.unsplash.com/photo-1515705576963-95cad62945b6?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=750&q=80"));
-        imageContainer.add(new ExampleGalleryViewCard("Mountain with fog",
+        imageContainer.add(new ImageGalleryViewCard("Mountain with fog",
                 "https://images.unsplash.com/photo-1513147122760-ad1d5bf68cdb?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80"));
-        imageContainer.add(new ExampleGalleryViewCard("Mountain at night",
+        imageContainer.add(new ImageGalleryViewCard("Mountain at night",
                 "https://images.unsplash.com/photo-1562832135-14a35d25edef?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=815&q=80"));
 
     }
 
     private void constructUI() {
-        addClassNames("example-gallery-view");
+        addClassNames("image-gallery-view");
         addClassNames(MaxWidth.SCREEN_LARGE, Margin.Horizontal.AUTO, Padding.Bottom.LARGE, Padding.Horizontal.LARGE);
 
         HorizontalLayout container = new HorizontalLayout();

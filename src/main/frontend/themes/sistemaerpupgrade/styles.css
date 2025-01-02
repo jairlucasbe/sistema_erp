@@ -1,5 +1,5 @@
 @import url('./main-layout.css');
 @import url('./views/example-gallery-view.css');
-    [theme~="dark"] {
+    [theme~="light"] {
 
     }

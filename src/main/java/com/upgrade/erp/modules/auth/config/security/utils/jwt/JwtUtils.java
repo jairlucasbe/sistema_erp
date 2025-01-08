@@ -1,4 +1,4 @@
-package com.upgrade.erp.modules.auth.jwt;
+package com.upgrade.erp.modules.auth.config.security.utils.jwt;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
@@ -26,7 +26,6 @@ public class JwtUtils {
 
     public String createToken(Authentication authentication) {
         Algorithm algorithm = Algorithm.HMAC256(this.privateKey);
-
         String username = authentication.getPrincipal().toString();
         System.out.println(authentication.getAuthorities());
         String authorities = authentication.getAuthorities()

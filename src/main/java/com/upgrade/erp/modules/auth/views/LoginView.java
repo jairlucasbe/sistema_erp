@@ -16,10 +16,8 @@ public class LoginView extends VerticalLayout {
         setAlignItems(Alignment.CENTER);
         setJustifyContentMode(JustifyContentMode.CENTER);
 
-        // Título
         H1 title = new H1("Login - Sistema ERP Upgrade");
 
-        // Formulario de Login
         LoginForm loginForm = new LoginForm();
         loginForm.addLoginListener(event -> {
             String username = event.getUsername();
@@ -34,8 +32,7 @@ public class LoginView extends VerticalLayout {
         add(title, loginForm);
     }
 
-    private boolean authenticate(String username, String password) {
-        // Implementar lógica de autenticación  
+    private boolean authenticate(String username, String password) { 
         return "admin".equals(username) && "password".equals(password);
     }
 }

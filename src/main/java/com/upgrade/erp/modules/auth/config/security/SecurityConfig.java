@@ -1,8 +1,11 @@
 package com.upgrade.erp.modules.auth.config.security;
 
 import com.upgrade.erp.modules.auth.config.security.filter.JwtTokenValidator;
-import com.upgrade.erp.modules.auth.jwt.JwtUtils;
+import com.upgrade.erp.modules.auth.config.security.utils.jwt.JwtUtils;
 import com.upgrade.erp.modules.auth.services.UserDetailServiceImpl;
+import com.upgrade.erp.modules.auth.views.LoginView;
+import com.vaadin.flow.spring.security.VaadinWebSecurity;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,8 +24,8 @@ import org.springframework.security.web.authentication.www.BasicAuthenticationFi
 
 @Configuration
 @EnableWebSecurity
-public class SecurityConfig {
-
+public class SecurityConfig{
+    
     @Autowired
     private JwtUtils jwtUtils;
 
@@ -33,8 +36,9 @@ public class SecurityConfig {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(http -> {
                     // EndPoints publicos
-                    // http.requestMatchers(HttpMethod.POST, "/auth/**").permitAll();
+                    http.requestMatchers(HttpMethod.POST, "/auth/**").permitAll();
                     http.requestMatchers(HttpMethod.GET, "/auth").permitAll();
+                    http.requestMatchers(HttpMethod.GET, "/authentication").permitAll();
 
                     // EndPoints Privados
                     http.requestMatchers(HttpMethod.GET, "/method/get").hasAuthority("READ");

@@ -1,7 +1,7 @@
 package com.upgrade.erp.modules.auth.config.security.filter;
 
 import com.auth0.jwt.interfaces.DecodedJWT;
-import com.upgrade.erp.modules.auth.jwt.JwtUtils;
+import com.upgrade.erp.modules.auth.config.security.utils.jwt.JwtUtils;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

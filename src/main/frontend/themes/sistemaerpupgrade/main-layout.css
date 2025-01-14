@@ -24,3 +24,7 @@ header nav a[highlight] vaadin-icon {
 header nav a[highlight] {
   background-color: var(--lumo-primary-color-10pct);
 }
+
+.sidebar-container {
+  background-color: #0d151c; /* Un color oscuro */
+}

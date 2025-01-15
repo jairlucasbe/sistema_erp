@@ -36,15 +36,15 @@ public class ModuleEntity {
     private String description;
 
     @Column(name = "active", nullable = false)
-    private Boolean active;  // Cambio de "boolean" a "Boolean" para permitir null
+    private Boolean active;
 
     @PrePersist
     public void prePersist() {
         if (this.uuid == null) {
             this.uuid = UUID.randomUUID();
         }
-        if (this.active == null) {  // Si no se ha establecido el valor de "active"
-            this.active = true;  // Asignar valor predeterminado
+        if (this.active == null) {
+            this.active = true;
         }
     }
 }

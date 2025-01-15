@@ -50,7 +50,7 @@
                     );
 
                     moduleService.createModule(request.toEntity());
-                    Notification.show("Module created successfully!", 3000, Notification.Position.MIDDLE);
+                    Notification.show("Module created successfully!", 3000, Notification.Position.TOP_CENTER);
 
                     // Clear all fields after saving
                     numberField.clear();

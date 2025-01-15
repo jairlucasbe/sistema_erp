@@ -17,20 +17,14 @@ public class ModuleServiceImpl {
         this.moduleRepository = moduleRepository;
     }
 
-    // Crear un nuevo módulo
     public ModuleEntity createModule(ModuleEntity moduleEntity) {
         return moduleRepository.save(moduleEntity);
     }
 
-    // Obtener un módulo por su ID
-    public Optional<ModuleEntity> getModuleById(UUID id) {  // Cambiado de Long a UUID
+    public Optional<ModuleEntity> getModuleById(UUID id) {
         return moduleRepository.findById(id);
     }
 
-    /**
-     * Obtener todos los modulos
-     * @return
-     */
     public List<ModuleEntity> getAllModules() {
         return moduleRepository.findAll();
     }

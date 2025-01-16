@@ -68,13 +68,23 @@ public class MainLayout extends AppLayout {
         Scroller scroller = new Scroller(createNavigation());
         scroller.addClassNames(MainLayoutStyles.scrollerStyle());
 
-        this.footer = new Footer();
-        this.footer.add(new Span("© 2025 | Consultancy | v1.0.0"));
         this.drawerBackground = new Div();
-        this.drawerBackground.add(this.toggle, logoContainer, scroller, this.footer);
+        this.drawerBackground.add(this.toggle, logoContainer, scroller, createFooter());
         addToDrawer(this.drawerBackground);
     }
 
+    private Footer createFooter() {
+        this.footer = new Footer();
+        this.footer.add(new Span("© 2025 | Consultancy | v1.0.0"));
+        return this.footer;
+    }
+
+    /**
+     * Configura el menú de navegación lateral (SideNav) dinámico basado en las
+     * entradas de {@link MenuConfiguration}
+     * 
+     * @return un componente {@link SideNav} configurado con los elementos del menú.
+     */
     private SideNav createNavigation() {
         SideNav nav = new SideNav();
         nav.addClassNames(MainLayoutStyles.sideNavStyle());
@@ -89,12 +99,21 @@ public class MainLayout extends AppLayout {
         return nav;
     }
 
+    /*
+     * Actualiza el título de la cabecera con el título de la página actual después
+     * de la navegación.
+     */
     @Override
     protected void afterNavigation() {
         super.afterNavigation();
         headerTitle.setText(getCurrentPageTitle());
     }
 
+    /**
+     * Obtiene el título de la página actual desde la configuración del menú.
+     * @return El título de la página actual si está configurado, o una cadena vacía
+     * en caso contrario.
+     */
     private String getCurrentPageTitle() {
         return MenuConfiguration.getPageHeader(getContent()).orElse("");
     }

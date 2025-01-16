@@ -40,6 +40,7 @@ public class MainLayout extends AppLayout {
     private Footer footer;
     private Scroller scroller;
     private DrawerToggle drawerToggle;
+    private SideNav sideNav;
 
     public MainLayout() {
         setPrimarySection(Section.DRAWER);
@@ -92,7 +93,6 @@ public class MainLayout extends AppLayout {
     private Div createLogoContainer() {
         this.logoContainer = new Div();
         Span appName = new Span("GRUPO UPGRADE");
-        appName.addClassNames(MainLayoutStyles.logoStyle());
         logoContainer.add(appName);
         return logoContainer;
     }
@@ -115,17 +115,16 @@ public class MainLayout extends AppLayout {
      * @return un componente {@link SideNav} configurado con los elementos del menú.
      */
     private SideNav createNavigation() {
-        SideNav nav = new SideNav();
-        nav.addClassNames(MainLayoutStyles.sideNavStyle());
+        this.sideNav = new SideNav();
         List<MenuEntry> menuEntries = MenuConfiguration.getMenuEntries();
         menuEntries.forEach(entry -> {
             if (entry.icon() != null) {
-                nav.addItem(new SideNavItem(entry.title(), entry.path(), new SvgIcon(entry.icon())));
+                sideNav.addItem(new SideNavItem(entry.title(), entry.path(), new SvgIcon(entry.icon())));
             } else {
-                nav.addItem(new SideNavItem(entry.title(), entry.path()));
+                sideNav.addItem(new SideNavItem(entry.title(), entry.path()));
             }
         });
-        return nav;
+        return sideNav;
     }
 
     /*

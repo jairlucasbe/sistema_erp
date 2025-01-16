@@ -6,23 +6,30 @@ import com.vaadin.flow.theme.lumo.LumoUtility;
 public class MainLayoutStyles {
 
     public static void applyStyles(MainLayout mainLayout) {
+        applyHeaderStyles(mainLayout);
+        applyDrawerStyles(mainLayout);
+    }
+
+    public static void applyHeaderStyles(MainLayout mainLayout) {
+        mainLayout.getHeaderToggle().addClassNames(toggleButtonStyle());
+        mainLayout.getHeaderTitle().addClassNames(headerTitleStyle());
+        mainLayout.getHeaderContainer().addClassNames(headerContainerStyle());
+    }
+
+    public static void applyDrawerStyles(MainLayout mainLayout) {
+        mainLayout.getDrawerToggle().addClassNames(toggleButtonStyle());
+        mainLayout.getDrawerContainer().addClassNames(sidebarContainerStyle());
+        mainLayout.getLogoContainer().addClassNames(logoContainerStyle());
+        mainLayout.getScroller().addClassNames(scrollerStyle());
         mainLayout.getFooter().addClassNames(footerStyle());
-        mainLayout.getDrawerBackground().addClassNames(sidebarContainerStyle());
-        mainLayout.getToggle().addClassNames(MainLayoutStyles.toggleButtonStyle());
     }
 
-    // Estilo común para elementos con padding
-    public static String[] commonPadding() {
-        return new String[] { LumoUtility.Padding.Horizontal.SMALL };
-    }
-
-    // Estilo para fondo y alineación
-    public static String[] commonBackgroundAlignment() {
-        return new String[] {
-                LumoUtility.Background.CONTRAST_5,
-                LumoUtility.Display.FLEX,
-                LumoUtility.JustifyContent.CENTER
-        };
+    public static void toggleHeaderTitleStyle(MainLayout mainLayout, boolean isDrawerOpened) {
+        if (isDrawerOpened) {
+            mainLayout.getHeaderTitle().getClassNames().add(LumoUtility.Margin.Left.MEDIUM);
+        } else {
+            mainLayout.getHeaderTitle().getClassNames().remove(LumoUtility.Margin.Left.MEDIUM);
+        }
     }
 
     public static String[] toggleButtonStyle() {
@@ -32,7 +39,18 @@ public class MainLayoutStyles {
             LumoUtility.Background.CONTRAST_5,
             LumoUtility.BorderRadius.MEDIUM,
             LumoUtility.Display.FLEX,
-            LumoUtility.AlignItems.CENTER
+            LumoUtility.AlignItems.CENTER,
+            LumoUtility.Margin.SMALL,
+            LumoUtility.AlignSelf.START
+        };
+    }
+
+    public static String[] headerContainerStyle() {
+        return new String[] {
+                LumoUtility.Background.BASE,
+                LumoUtility.Display.FLEX,
+                LumoUtility.AlignItems.CENTER,
+                LumoUtility.JustifyContent.BETWEEN
         };
     }
 
@@ -43,7 +61,8 @@ public class MainLayoutStyles {
                 LumoUtility.FontSize.LARGE,
                 LumoUtility.Display.FLEX,
                 LumoUtility.AlignItems.START,
-                LumoUtility.JustifyContent.START
+                LumoUtility.JustifyContent.START,
+                LumoUtility.Margin.Left.MEDIUM
         };
     }
 
@@ -73,9 +92,7 @@ public class MainLayoutStyles {
                 LumoUtility.Display.FLEX,
                 LumoUtility.FlexDirection.COLUMN,
                 LumoUtility.Height.FULL,
-                LumoUtility.Padding.SMALL,
-                LumoUtility.AlignItems.CENTER,
-                
+                LumoUtility.AlignItems.CENTER,  
         };
     }
 
@@ -86,7 +103,6 @@ public class MainLayoutStyles {
                 LumoUtility.Display.FLEX,
                 LumoUtility.JustifyContent.CENTER,
                 LumoUtility.Padding.Vertical.SMALL,
-                LumoUtility.Margin.LARGE
         };
     }
 
@@ -103,7 +119,7 @@ public class MainLayoutStyles {
         return new String[] {
                 LumoUtility.Background.CONTRAST_5,
                 LumoUtility.Flex.GROW,
-                LumoUtility.Overflow.AUTO
+                LumoUtility.Overflow.AUTO   
         };
     }
 

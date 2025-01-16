@@ -29,17 +29,17 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = true)
 public class MainLayout extends AppLayout {
 
-    /**
-     * Componentes de la cabecera
-     */
+    // Componentes de la cabecera
     private H1 headerTitle;
-    private DrawerToggle toggle;
+    private DrawerToggle headerToggle;
+    private Div headerContainer;
 
-    /**
-     * Componentes del drawer
-     */
-    private Div drawerBackground;
+    // Componentes del drawer
+    private Div drawerContainer;
+    private Div logoContainer;
     private Footer footer;
+    private Scroller scroller;
+    private DrawerToggle drawerToggle;
 
     public MainLayout() {
         setPrimarySection(Section.DRAWER);
@@ -49,28 +49,57 @@ public class MainLayout extends AppLayout {
     }
 
     private void addHeaderContent() {
-        this.toggle = new DrawerToggle();
-        this.toggle.setIcon(new Icon(VaadinIcon.ANGLE_RIGHT));
-        headerTitle = new H1();
-        headerTitle.addClassNames(MainLayoutStyles.headerTitleStyle());
-        addToNavbar(true, toggle, headerTitle);
+        this.headerTitle = new H1();
+        this.headerContainer = new Div();
+        this.headerToggle = createToggle();
+        this.headerToggle.getStyle().set("display", "none");
+        this.headerToggle.addClickListener(event -> handlerToggle());
+        this.headerContainer.add(this.headerToggle, this.headerTitle);
+        addToNavbar(true, this.headerContainer);
     }
 
     private void addDrawerContent() {
-        this.toggle = new DrawerToggle();
-        this.toggle.setIcon(new Icon(VaadinIcon.ANGLE_LEFT));
-        Div logoContainer = new Div();
-        logoContainer.addClassNames(MainLayoutStyles.logoContainerStyle());
+        this.drawerContainer = new Div();
+        this.drawerToggle = createToggle();
+        this.drawerToggle.addClickListener(event -> handlerToggle());
+        this.drawerContainer.add(this.drawerToggle, createLogoContainer(), createScroller(), createFooter());
+        addToDrawer(this.drawerContainer);
+    }
+
+    private DrawerToggle createToggle() {
+        DrawerToggle toggle = new DrawerToggle();
+        toggle.setIcon(new Icon(VaadinIcon.ANGLE_LEFT));
+        return toggle;
+    }
+
+    /**
+     * Maneja el cambio de visibilidad entre los botones `headerToggle` y `drawerToggle`según el estado del drawer (abierto o cerrado).
+     */
+    private void handlerToggle() {
+        Boolean isDrawerOpened = isDrawerOpened();
+        if (isDrawerOpened) {
+            this.drawerToggle.getStyle().set("display", "block");
+            this.headerToggle.getStyle().set("display", "none");
+            this.drawerToggle.setIcon(new Icon(VaadinIcon.ANGLE_LEFT));
+        } else {
+            this.drawerToggle.getStyle().set("display", "none");
+            this.headerToggle.getStyle().set("display", "block");
+            this.headerToggle.setIcon(new Icon(VaadinIcon.ANGLE_RIGHT));
+        }
+        MainLayoutStyles.toggleHeaderTitleStyle(this, isDrawerOpened);
+    }
+
+    private Div createLogoContainer() {
+        this.logoContainer = new Div();
         Span appName = new Span("GRUPO UPGRADE");
         appName.addClassNames(MainLayoutStyles.logoStyle());
         logoContainer.add(appName);
+        return logoContainer;
+    }
 
-        Scroller scroller = new Scroller(createNavigation());
-        scroller.addClassNames(MainLayoutStyles.scrollerStyle());
-
-        this.drawerBackground = new Div();
-        this.drawerBackground.add(this.toggle, logoContainer, scroller, createFooter());
-        addToDrawer(this.drawerBackground);
+    private Scroller createScroller() {
+        this.scroller = new Scroller(createNavigation());
+        return this.scroller;
     }
 
     private Footer createFooter() {
@@ -106,13 +135,14 @@ public class MainLayout extends AppLayout {
     @Override
     protected void afterNavigation() {
         super.afterNavigation();
-        headerTitle.setText(getCurrentPageTitle());
+        this.headerTitle.setText(getCurrentPageTitle());
     }
 
     /**
      * Obtiene el título de la página actual desde la configuración del menú.
+     * 
      * @return El título de la página actual si está configurado, o una cadena vacía
-     * en caso contrario.
+     *         en caso contrario.
      */
     private String getCurrentPageTitle() {
         return MenuConfiguration.getPageHeader(getContent()).orElse("");

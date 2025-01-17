@@ -26,7 +26,7 @@
             setClassName("module-create-view");
             setAlignItems(Alignment.CENTER);
             setJustifyContentMode(JustifyContentMode.CENTER);
-
+            
             H1 title = new H1("Create New Module");
 
             TextField numberField = new TextField("Number");

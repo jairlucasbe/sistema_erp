@@ -13,16 +13,11 @@ import com.vaadin.flow.router.Route;
 public class ModuleUpdateView extends BaseFormLayout {
 
     public ModuleUpdateView() {
-        // Establecer propiedades básicas para la vista
-        setClassName("module-update-view");
-        setAlignItems(Alignment.CENTER);
-        setJustifyContentMode(JustifyContentMode.CENTER);
-
-        // Aquí no se agrega contenido, lo que deja la vista en blanco
         setTitle("Titulo Module Update View");
         getButtonComponent().addButton("Guardar", null);
         getButtonComponent().addButton("Eliminar", null);
         getButtonComponent().addButton("Reponer", null);
         getButtonComponent().addButton("Saltar", null);
     }
+    
 }

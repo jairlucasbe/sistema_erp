@@ -12,34 +12,27 @@ import com.vaadin.flow.component.html.H1;
 @EqualsAndHashCode(callSuper = true)
 public class BaseFormLayout extends VerticalLayout {
 
-    private final H1 titleLabel;
+    private final H1 title;
     private final ButtonComponent buttonComponent;
 
     public BaseFormLayout() {
-        // Configuración inicial del layout
-        setSpacing(true);
-        setPadding(true);
         setAlignItems(Alignment.CENTER);
         setJustifyContentMode(JustifyContentMode.START);
         setClassName("base-form-layout");
 
-        // Crear componentes básicos
-        titleLabel = new H1(); // Crear el Label con texto vacío
-        titleLabel.setClassName("form-title");
+        title = new H1();
+        title.setClassName("form-title");
 
         buttonComponent = new ButtonComponent();
-
-        // Agregar los componentes al layout
-        add(titleLabel, buttonComponent);
+        add(this.title, buttonComponent);
     }
 
-    // Métodos para personalizar el título del formulario
     public void setTitle(String title) {
-        titleLabel.setText(title);
+        this.title.setText(title);
     }
 
     public String getTitle() {
-        return titleLabel.getText();
+        return this.title.getText();
     }
 
 }

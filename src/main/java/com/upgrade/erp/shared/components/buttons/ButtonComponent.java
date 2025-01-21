@@ -6,8 +6,8 @@ import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 public class ButtonComponent extends HorizontalLayout {
 
     public ButtonComponent() {
-        setSpacing(true);
-        setPadding(true);
+        // setSpacing(true);
+        // setPadding(true);
     }
 
     public void addButton(String text, Runnable onClick) {

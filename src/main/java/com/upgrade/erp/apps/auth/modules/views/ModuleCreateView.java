@@ -2,69 +2,47 @@ package com.upgrade.erp.apps.auth.modules.views;
 
 import org.vaadin.lineawesome.LineAwesomeIconUrl;
 
+import com.upgrade.erp.apps.auth.modules.controllers.ModuleController;
 import com.upgrade.erp.apps.auth.modules.controllers.dto.CreateModuleDtoRequest;
-import com.upgrade.erp.apps.auth.modules.services.ModuleServiceImpl;
-import com.vaadin.flow.component.button.Button;
-import com.vaadin.flow.component.formlayout.FormLayout;
-import com.vaadin.flow.component.html.H1;
+import com.upgrade.erp.shared.layouts.forms.BaseFormLayout;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.Menu;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
 @PageTitle("Create Module")
 @Route("create")
-@Menu(order = 1, icon = LineAwesomeIconUrl.ADDRESS_CARD_SOLID)
+@Menu(order = 1, icon = LineAwesomeIconUrl.ADDRESS_CARD)
 public class ModuleCreateView extends VerticalLayout {
 
-    private final ModuleServiceImpl moduleService;
+    private final ModuleController moduleController;
+    private final BaseFormLayout baseFormLayout;
 
-    public ModuleCreateView(ModuleServiceImpl moduleService) {
-        this.moduleService = moduleService;
-        setClassName("module-create-view");
-        setAlignItems(Alignment.CENTER);
-        setJustifyContentMode(JustifyContentMode.CENTER);
+    public ModuleCreateView(ModuleController moduleController, BaseFormLayout baseFormLayout) {
+        this.moduleController = moduleController;
+        this.baseFormLayout = baseFormLayout;
+        this.baseFormLayout.cleanComponents();
+        baseFormLayout.setTitle("Create Module");
+        // FormComponent
+        baseFormLayout.getFormComponent().addTextField("Number", "Enter module number");
+        baseFormLayout.getFormComponent().addTextField("Name", "Enter module name");
+        baseFormLayout.getFormComponent().addTextField("Description", "Enter module description");
+        baseFormLayout.getFormComponent().addCheckbox("Is Active");
+        // ButtonComponent
+        baseFormLayout.getButtonComponent().addButton("Guardar", this::saveModule);
+        add(baseFormLayout);
+    }
 
-        H1 title = new H1("Create New Module");
-
-        TextField numberField = new TextField("Number");
-        numberField.setRequired(true);
-
-        TextField nameField = new TextField("Name");
-        nameField.setRequired(true);
-
-        TextField descriptionField = new TextField("Description");
-
-        TextField isActiveField = new TextField("Is Active");
-        isActiveField.setPlaceholder("true/false");
-
-        Button saveButton = new Button("Save", event -> {
-            try {
-                CreateModuleDtoRequest request = new CreateModuleDtoRequest(
-                        Long.parseLong(numberField.getValue()),
-                        nameField.getValue(),
-                        descriptionField.getValue(),
-                        Boolean.parseBoolean(isActiveField.getValue()));
-
-                moduleService.createModule(request.toEntity());
-                Notification.show("Module created successfully!", 3000, Notification.Position.TOP_CENTER);
-
-                // Clear all fields after saving
-                numberField.clear();
-                nameField.clear();
-                descriptionField.clear();
-                isActiveField.clear();
-            } catch (Exception e) {
-                Notification.show("Error: " + e.getMessage(), 3000, Notification.Position.MIDDLE);
-            }
-        });
-
-        // Add fields to the form layout
-        FormLayout formLayout = new FormLayout();
-        formLayout.add(numberField, nameField, descriptionField, isActiveField, saveButton);
-
-        add(title, formLayout);
+    private void saveModule() {
+        Long moduleNumber = Long
+                .valueOf(baseFormLayout.getFormComponent().getFormResponsesComponent().getTextFieldValue("Number"));
+        String moduleName = baseFormLayout.getFormComponent().getFormResponsesComponent().getTextFieldValue("Name");
+        String moduleDescription = baseFormLayout.getFormComponent().getFormResponsesComponent()
+                .getTextFieldValue("Description");
+        boolean isActive = baseFormLayout.getFormComponent().getFormResponsesComponent().getCheckboxValue("Is Active");
+        CreateModuleDtoRequest dto = new CreateModuleDtoRequest(moduleNumber, moduleName, moduleDescription, isActive);
+        moduleController.createModule(dto);
+        Notification.show(moduleName + " guardado correctamente!", 2000, Notification.Position.TOP_CENTER);
     }
 }

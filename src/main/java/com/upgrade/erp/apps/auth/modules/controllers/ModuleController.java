@@ -24,4 +24,14 @@ public class ModuleController {
         moduleEntity.setActive(request.isActive());
         return moduleService.createModule(moduleEntity);
     }
+
+    public ModuleEntity updateModule(CreateModuleDtoRequest request) {
+        ModuleEntity moduleEntity = new ModuleEntity();
+        moduleEntity.setNumber(request.number());
+        System.out.println();
+        moduleEntity.setName(request.name());
+        moduleEntity.setDescription(request.description());
+        moduleEntity.setActive(request.isActive());
+        return moduleService.createModule(moduleEntity);
+    }
 }

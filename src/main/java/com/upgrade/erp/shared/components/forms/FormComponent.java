@@ -2,6 +2,8 @@ package com.upgrade.erp.shared.components.forms;
 
 import java.util.List;
 
+import org.springframework.stereotype.Component;
+
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.component.textfield.PasswordField;
@@ -9,6 +11,7 @@ import com.vaadin.flow.component.checkbox.Checkbox;
 import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.textfield.NumberField;
 
+@Component
 public class FormComponent extends FormLayout {
 
     public FormComponent() {

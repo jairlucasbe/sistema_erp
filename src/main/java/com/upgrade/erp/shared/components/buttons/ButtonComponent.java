@@ -1,8 +1,11 @@
 package com.upgrade.erp.shared.components.buttons;
 
+import org.springframework.stereotype.Component;
+
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 
+@Component
 public class ButtonComponent extends HorizontalLayout {
 
     public ButtonComponent() {

@@ -1,30 +1,28 @@
 package com.upgrade.erp.shared.layouts.forms;
 
 import com.upgrade.erp.shared.components.buttons.ButtonComponent;
+import com.upgrade.erp.shared.components.forms.FormComponent;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.Getter;
 
 import com.vaadin.flow.component.html.H1;
 
-@Data
-@EqualsAndHashCode(callSuper = true)
 public class BaseFormLayout extends VerticalLayout {
 
     private final H1 title;
+
+    @Getter
     private final ButtonComponent buttonComponent;
 
+    @Getter
+    private final FormComponent formComponent;
+
     public BaseFormLayout() {
-        setAlignItems(Alignment.CENTER);
-        setJustifyContentMode(JustifyContentMode.START);
-        setClassName("base-form-layout");
-
         title = new H1();
-        title.setClassName("form-title");
-
         buttonComponent = new ButtonComponent();
-        add(this.title, buttonComponent);
+        formComponent = new FormComponent();
+        add(this.title, formComponent, buttonComponent);
     }
 
     public void setTitle(String title) {

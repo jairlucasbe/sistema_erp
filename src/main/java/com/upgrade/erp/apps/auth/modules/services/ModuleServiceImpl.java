@@ -29,4 +29,8 @@ public class ModuleServiceImpl {
     public List<ModuleEntity> getAllModules() {
         return moduleRepository.findAll();
     }
+
+    public ModuleEntity updateModule(ModuleEntity moduleEntity) {
+        return moduleRepository.save(moduleEntity);
+    }
 }

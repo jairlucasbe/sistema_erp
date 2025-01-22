@@ -28,6 +28,11 @@ public class BaseFormLayout extends VerticalLayout {
         add(this.title, formComponent, buttonComponent);
     }
 
+    public void cleanComponents() {
+        this.formComponent.removeAll();
+        this.buttonComponent.removeAll();
+    }
+
     public void setTitle(String title) {
         this.title.setText(title);
     }

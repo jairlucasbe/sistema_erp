@@ -1,5 +1,8 @@
 package com.upgrade.erp.apps.auth.modules.controllers;
 
+import java.util.Optional;
+import java.util.UUID;
+
 import org.springframework.stereotype.Controller;
 
 import com.upgrade.erp.apps.auth.modules.controllers.dto.CreateModuleDtoRequest;
@@ -26,7 +29,21 @@ public class ModuleController {
         return moduleService.createModule(moduleEntity);
     }
 
-    public void updateModule() {
-        System.out.println("Aplicacion funcionando correctamente");
+    public void updateModule(UUID uuid_module, CreateModuleDtoRequest request) {
+        Optional<ModuleEntity> existingModuleOpt = moduleService.getModuleById(uuid_module);
+        if (existingModuleOpt.isPresent()) {
+            ModuleEntity moduleEntity = existingModuleOpt.get();
+            moduleEntity.setNumber(request.number());
+            moduleEntity.setName(request.name());
+            moduleEntity.setDescription(request.description());
+            moduleEntity.setActive(request.isActive());
+            moduleService.updateModule(moduleEntity);
+        } else {
+            System.out.println("Module not found");
+        }
+    }
+
+    public Optional<ModuleEntity> getModuleById(UUID id) {
+        return moduleService.getModuleById(id);
     }
 }

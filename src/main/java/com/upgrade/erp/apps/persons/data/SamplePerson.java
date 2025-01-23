@@ -7,6 +7,7 @@ import java.time.LocalDate;
 import jakarta.validation.constraints.Email;
 
 public class SamplePerson extends AbstracEntity{
+    //private Integer id;
     private String firstName;
     private String lastName;
     @Email

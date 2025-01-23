@@ -18,7 +18,7 @@ import com.vaadin.flow.router.Route;
 import com.vaadin.flow.theme.lumo.LumoUtility.Margin.Minus.Horizontal;
 import com.vaadin.flow.theme.lumo.LumoUtility.Margin.Minus.Vertical;
 
-@PageTitle("Grid with Filters")
+@PageTitle("Ordenes de Venta")
 @Route("Persons")
 @Menu (order = 0, icon = LineAwesomeIconUrl.FIRE_EXTINGUISHER_SOLID)
 @Uses (Icon.class)

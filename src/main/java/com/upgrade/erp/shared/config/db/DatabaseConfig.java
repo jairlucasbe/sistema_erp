@@ -26,27 +26,21 @@ public class DatabaseConfig {
         return DataSourceBuilder.create().build();
     }
 
-    // Renombramos el bean para que coincida con lo que espera el repositorio
     @Bean(name = "entityManagerFactory")
-    public LocalContainerEntityManagerFactoryBean entityManagerFactory(
-            @Qualifier("newDataSource") DataSource newDataSource) {
+    public LocalContainerEntityManagerFactoryBean entityManagerFactory(@Qualifier("newDataSource") DataSource newDataSource) {
         LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
         em.setDataSource(newDataSource);
-        em.setPackagesToScan("com.upgrade.erp.server.entities"); // Cambia esto al paquete de tus entidades para la nueva base de datos
+        em.setPackagesToScan("com.upgrade.erp.server.entities");
         HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
         em.setJpaVendorAdapter(vendorAdapter);
-
         HashMap<String, Object> properties = new HashMap<>();
         properties.put("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
         em.setJpaPropertyMap(properties);
-
         return em;
     }
 
-    // Configuración del TransactionManager para la nueva base de datos
     @Bean(name = "newTransactionManager")
-    public PlatformTransactionManager newTransactionManager(
-            @Qualifier("entityManagerFactory") EntityManagerFactory entityManagerFactory) {
+    public PlatformTransactionManager newTransactionManager(@Qualifier("entityManagerFactory") EntityManagerFactory entityManagerFactory) {
         return new JpaTransactionManager(entityManagerFactory);
     }
 }

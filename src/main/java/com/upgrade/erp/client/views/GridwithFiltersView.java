@@ -1,7 +1,5 @@
 package com.upgrade.erp.client.views;
 
-
-import org.hibernate.validator.internal.util.classhierarchy.Filters;
 import org.vaadin.lineawesome.LineAwesomeIconUrl;
 
 import com.upgrade.erp.server.entities.SamplePerson;
@@ -10,13 +8,10 @@ import com.vaadin.flow.component.dependency.Uses;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.icon.Icon;
-import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Menu;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
-import com.vaadin.flow.theme.lumo.LumoUtility.Margin.Minus.Horizontal;
-import com.vaadin.flow.theme.lumo.LumoUtility.Margin.Minus.Vertical;
 
 @PageTitle("Ordenes de Venta")
 @Route("Persons")

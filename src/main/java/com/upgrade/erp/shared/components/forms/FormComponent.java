@@ -22,11 +22,47 @@ public class FormComponent extends FormLayout {
     @Getter
     private FormResponsesComponent formResponsesComponent;
 
+    private int fieldCount = 0;  // Contador de campos
+
+    public FormComponent() {
+        // Ajuste inicial (esto se actualizará dinámicamente)
+        setResponsiveSteps(
+            new FormLayout.ResponsiveStep("0", 1), // 1 columna por defecto
+            new FormLayout.ResponsiveStep("600px", 1), // En pantallas más grandes, siempre 1 columna
+            new FormLayout.ResponsiveStep("900px", 1)  // Mantener 1 columna, ya que lo ajustamos dinámicamente
+        );
+    }
+
+    private void adjustColumnLayout() {
+        // Ajustar el número de columnas según la cantidad de campos
+        if (fieldCount <= 7) {
+            setResponsiveSteps(
+                new FormLayout.ResponsiveStep("0", 1), // 1 columna
+                new FormLayout.ResponsiveStep("600px", 1),
+                new FormLayout.ResponsiveStep("900px", 1)
+            );
+        } else if (fieldCount <= 14) {
+            setResponsiveSteps(
+                new FormLayout.ResponsiveStep("0", 2), // 2 columnas
+                new FormLayout.ResponsiveStep("600px", 2),
+                new FormLayout.ResponsiveStep("900px", 2)
+            );
+        } else {
+            setResponsiveSteps(
+                new FormLayout.ResponsiveStep("0", 3), // 3 columnas
+                new FormLayout.ResponsiveStep("600px", 3),
+                new FormLayout.ResponsiveStep("900px", 3)
+            );
+        }
+    }
+
     public TextField addTextField(String label, String placeholder) {
         TextField textField = new TextField(label);
         textField.setPlaceholder(placeholder);
         add(textField);
         formResponsesComponent.addField(label, textField);
+        fieldCount++;
+        adjustColumnLayout();
         return textField;
     }
 
@@ -35,6 +71,8 @@ public class FormComponent extends FormLayout {
         passwordField.setPlaceholder(placeholder);
         add(passwordField);
         formResponsesComponent.addField(label, passwordField);
+        fieldCount++;
+        adjustColumnLayout();
         return passwordField;
     }
 
@@ -42,6 +80,8 @@ public class FormComponent extends FormLayout {
         Checkbox checkbox = new Checkbox(label);
         add(checkbox);
         formResponsesComponent.addField(label, checkbox);
+        fieldCount++;
+        adjustColumnLayout();
         return checkbox;
     }
 
@@ -50,6 +90,8 @@ public class FormComponent extends FormLayout {
         comboBox.setItems(items);
         add(comboBox);
         formResponsesComponent.addField(label, comboBox);
+        fieldCount++;
+        adjustColumnLayout();
         return comboBox;
     }
 
@@ -59,6 +101,8 @@ public class FormComponent extends FormLayout {
         numberField.setMax(max);
         add(numberField);
         formResponsesComponent.addField(label, numberField);
+        fieldCount++;
+        adjustColumnLayout();
         return numberField;
     }
 }

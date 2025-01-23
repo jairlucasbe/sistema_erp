@@ -2,6 +2,7 @@ package com.upgrade.erp.apps.auth.modules.services;
 
 import org.springframework.stereotype.Service;
 
+import com.upgrade.erp.apps.auth.modules.exceptions.ValidationException;
 import com.upgrade.erp.apps.auth.modules.persistence.entities.ModuleEntity;
 import com.upgrade.erp.apps.auth.modules.persistence.repositories.ModuleRepository;
 
@@ -19,6 +20,12 @@ public class ModuleServiceImpl {
     }
 
     public ModuleEntity createModule(ModuleEntity moduleEntity) {
+        if (moduleRepository.existsByNumber(moduleEntity.getNumber())) {
+            throw new ValidationException("El número del módulo ya existe: " + moduleEntity.getNumber());
+        }
+        if (moduleRepository.existsByName(moduleEntity.getName())) {
+            throw new ValidationException("El nombre del módulo ya existe: " + moduleEntity.getName());
+        }
         return moduleRepository.save(moduleEntity);
     }
 

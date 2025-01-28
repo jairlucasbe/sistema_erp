@@ -11,8 +11,6 @@ public class LegacyDataSourceProperties {
     private String username;
     private String password;
     private String driverClassName;
-    private boolean showSql;
-    private String hibernateDialect;
 
     public String getUrl() {
         return url;
@@ -44,21 +42,5 @@ public class LegacyDataSourceProperties {
 
     public void setDriverClassName(String driverClassName) {
         this.driverClassName = driverClassName;
-    }
-
-    public boolean isShowSql() {
-        return showSql;
-    }
-
-    public void setShowSql(boolean showSql) {
-        this.showSql = showSql;
-    }
-
-    public String getHibernateDialect() {
-        return hibernateDialect;
-    }
-
-    public void setHibernateDialect(String hibernateDialect) {
-        this.hibernateDialect = hibernateDialect;
     }
 }

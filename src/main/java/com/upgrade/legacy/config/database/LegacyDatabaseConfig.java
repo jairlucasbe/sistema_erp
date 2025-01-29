@@ -1,4 +1,4 @@
-package com.upgrade.legacy.config;
+package com.upgrade.legacy.config.database;
 
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.boot.orm.jpa.EntityManagerFactoryBuilder;

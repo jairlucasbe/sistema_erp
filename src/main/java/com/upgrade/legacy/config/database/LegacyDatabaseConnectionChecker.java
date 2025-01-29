@@ -1,4 +1,4 @@
-package com.upgrade.config.database;
+package com.upgrade.legacy.config.database;
 
 import javax.sql.DataSource;
 
@@ -13,21 +13,21 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 @Component
-public class DatabaseConnectionChecker {
+public class LegacyDatabaseConnectionChecker {
 
-    private static final Logger logger = LoggerFactory.getLogger(DatabaseConnectionChecker.class);
-    
-    private final DataSource principalDataSource;
+    private static final Logger logger = LoggerFactory.getLogger(LegacyDatabaseConnectionChecker.class);
 
-    public DatabaseConnectionChecker(
-            @Qualifier(DatabaseConfig.DATASOURCE_NAME) DataSource principalDataSource) {
-        this.principalDataSource = principalDataSource;
+    private final DataSource legacyDataSource;
+
+    public LegacyDatabaseConnectionChecker(
+            @Qualifier(LegacyDatabaseConfig.DATASOURCE_NAME) DataSource legacyDataSource) {
+        this.legacyDataSource = legacyDataSource;
     }
 
     @PostConstruct
     public void init() {
         logger.info("Iniciando verificación de conexión...");
-        checkConnection(principalDataSource, "Base de Datos Principal");
+        checkConnection(legacyDataSource, "Base de Datos Legacy");
     }
 
     public void checkConnection(DataSource dataSource, String dbName) {
@@ -39,4 +39,5 @@ public class DatabaseConnectionChecker {
             logger.error("Error al conectar a la {}: {}", dbName, e.getMessage());
         }
     }
+
 }

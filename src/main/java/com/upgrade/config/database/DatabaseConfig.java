@@ -27,7 +27,7 @@ public class DatabaseConfig {
     public static final String PERSISTENCE_UNIT_NAME = "principal";
     public static final String ENTITY_PACKAGE = "com.upgrade.erp.server.entities";
     public static final String DATASOURCE_NAME = "datasource";
-    public static final String ENTITY_MANAGER_FACTORY_NAME = "entityManagerFactory";
+    public static final String ENTITY_MANAGER_FACTORY_NAME = "localEntityManagerFactory";
 
     @Bean(name = DATASOURCE_NAME)
     @Primary

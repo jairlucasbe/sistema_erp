@@ -1,9 +1,9 @@
-package com.upgrade.config.database;
+package com.upgrade.legacy.config;
 
 import org.springframework.boot.jdbc.DataSourceBuilder;
+import org.springframework.boot.orm.jpa.EntityManagerFactoryBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.boot.orm.jpa.EntityManagerFactoryBuilder;
 import org.springframework.core.env.Environment;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.orm.jpa.JpaTransactionManager;
@@ -17,13 +17,18 @@ import java.util.Objects;
 
 @Configuration
 @EnableJpaRepositories(
-    basePackages = "com.upgrade.erp.legacy.repositories",  // Cambia al paquete de repositorios de la base de datos legacy
+    basePackages = "com.upgrade.legacy.server.repositories",
     entityManagerFactoryRef = "legacyEntityManagerFactory",
     transactionManagerRef = "legacyTransactionManager"
 )
-public class LegacyDataSourceConfig {
+public class LegacyDatabaseConfig {
 
-    @Bean
+    public static final String PERSISTENCE_UNIT_NAME = "legacy";
+    public static final String ENTITY_PACKAGE = "com.upgrade.legacy.server.entities";
+    public static final String DATASOURCE_NAME = "legacyDatabase";
+    public static final String ENTITY_MANAGER_FACTORY_NAME = "legacyEntityManagerFactory";
+
+    @Bean(name = DATASOURCE_NAME)
     public DataSource legacyDataSource(Environment env) {
         return DataSourceBuilder.create()
             .url(Objects.requireNonNull(env.getProperty("legacy.datasource.url")))
@@ -33,12 +38,13 @@ public class LegacyDataSourceConfig {
             .build();
     }
 
-    @Bean
-    public LocalContainerEntityManagerFactoryBean legacyEntityManagerFactory(EntityManagerFactoryBuilder builder, DataSource legacyDataSource) {
+    @Bean(name = ENTITY_MANAGER_FACTORY_NAME)
+    public LocalContainerEntityManagerFactoryBean legacyEntityManagerFactory(
+        EntityManagerFactoryBuilder builder, DataSource legacyDataSource) {
         return builder
             .dataSource(legacyDataSource)
-            .packages("com.upgrade.erp.legacy.model") // Ajusta el paquete de las entidades legacy
-            .persistenceUnit("legacy")
+            .packages(ENTITY_PACKAGE)
+            .persistenceUnit(PERSISTENCE_UNIT_NAME)
             .build();
     }
 

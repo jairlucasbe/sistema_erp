@@ -1,52 +1,59 @@
 package com.upgrade.config.database;
 
-// import org.springframework.beans.factory.annotation.Qualifier;
-// import org.springframework.boot.context.properties.ConfigurationProperties;
-// import org.springframework.boot.jdbc.DataSourceBuilder;
-// import org.springframework.context.annotation.Bean;
-// import org.springframework.context.annotation.Configuration;
-// import org.springframework.context.annotation.Primary;
-// import org.springframework.orm.jpa.JpaTransactionManager;
-// import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
-// import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
-// import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.boot.jdbc.DataSourceBuilder;
+import org.springframework.boot.orm.jpa.EntityManagerFactoryBuilder;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
+import org.springframework.core.env.Environment;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.orm.jpa.JpaTransactionManager;
+import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
+import org.springframework.transaction.PlatformTransactionManager;
 
-// import jakarta.persistence.EntityManagerFactory;
-// import javax.sql.DataSource;
-// import java.util.Map;
+import jakarta.persistence.EntityManagerFactory;
 
-// @Configuration
-// public class DatabaseConfig {
+import javax.sql.DataSource;
+import java.util.Objects;
 
-//     private static final String ENTITY_PACKAGE = "com.upgrade.erp.server.entities";
-//     private static final String HIBERNATE_DIALECT = "hibernate.dialect";
-//     private static final String DIALECT_CLASS = "org.hibernate.dialect.PostgreSQLDialect";
+@Configuration
+@EnableJpaRepositories(
+    basePackages = "com.upgrade.erp.server.repositories", 
+    entityManagerFactoryRef = "localEntityManagerFactory", 
+    transactionManagerRef = "localTransactionManager"
+)
+public class DatabaseConfig {
 
-//     @Bean(name = "DataSource")
-//     @ConfigurationProperties(prefix = "spring.datasource")
-//     @Primary
-//     public DataSource newDataSource() {
-//         return DataSourceBuilder.create().build();
-//     }
+    public static final String PERSISTENCE_UNIT_NAME = "principal";
+    public static final String ENTITY_PACKAGE = "com.upgrade.erp.server.entities";
+    public static final String DATASOURCE_NAME = "datasource";
+    public static final String ENTITY_MANAGER_FACTORY_NAME = "entityManagerFactory";
 
-//     @Bean(name = "entityManagerFactory")
-//     public LocalContainerEntityManagerFactoryBean entityManagerFactory(
-//             @Qualifier("DataSource") DataSource DataSource) {
-//         LocalContainerEntityManagerFactoryBean entityManagerFactory = new LocalContainerEntityManagerFactoryBean();
-//         entityManagerFactory.setDataSource(DataSource);
-//         entityManagerFactory.setPackagesToScan(ENTITY_PACKAGE);
-//         HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
-//         entityManagerFactory.setJpaVendorAdapter(vendorAdapter);
-//         entityManagerFactory.setJpaPropertyMap(Map.of(
-//                 HIBERNATE_DIALECT, DIALECT_CLASS
-//         ));
-//         return entityManagerFactory;
-//     }
+    @Bean(name = DATASOURCE_NAME)
+    @Primary
+    public DataSource dataSource(Environment env) {
+        return DataSourceBuilder.create()
+            .url(Objects.requireNonNull(env.getProperty("spring.datasource.url")))
+            .username(env.getProperty("spring.datasource.username"))
+            .password(env.getProperty("spring.datasource.password"))
+            .driverClassName(env.getProperty("spring.datasource.driver-class-name"))
+            .build();
+    }
 
-//     @Bean(name = "TransactionManager")
-//     public PlatformTransactionManager TransactionManager(
-//             @Qualifier("entityManagerFactory") EntityManagerFactory entityManagerFactory) {
-//         return new JpaTransactionManager(entityManagerFactory);
-//     }
+    @Bean(name = ENTITY_MANAGER_FACTORY_NAME)
+    @Primary
+    public LocalContainerEntityManagerFactoryBean localEntityManagerFactory(
+        EntityManagerFactoryBuilder builder, DataSource dataSource) {
+        return builder
+            .dataSource(dataSource)
+            .packages(ENTITY_PACKAGE)
+            .persistenceUnit(PERSISTENCE_UNIT_NAME)
+            .build();
+    }
 
-// }
+    @Bean
+    @Primary
+    public PlatformTransactionManager localTransactionManager(EntityManagerFactory localEntityManagerFactory) {
+        return new JpaTransactionManager(localEntityManagerFactory);
+    }
+}

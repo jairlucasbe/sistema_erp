@@ -1,4 +1,4 @@
-package com.upgrade.erp.server.entities;
+package com.upgrade.erp.server.entities.inventory;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -20,24 +20,25 @@ import java.util.UUID;
 @AllArgsConstructor
 @EqualsAndHashCode
 @Builder
-@Table(name = "modules", schema = "authentication")
+@Table(name = "vechicles", schema = "authentication")
 @Entity
-public class ModuleEntity {
-
+public class VehicleEntity {
     @Id
     @GeneratedValue(generator = "uuid2")
     private UUID uuid;
 
     @Column(unique = true, nullable = false)
-    private Long number;
+    private String plate;
 
     @Column(unique = true, nullable = false)
-    private String name;
+    private Long brand;
 
-    @Column(nullable = true)
+    @Column()
+    private String certificate;
+
+    @Column()
     private String description;
 
     @Column(name = "active", nullable = false)
     private Boolean active;
-
 }

@@ -39,5 +39,4 @@ public class LegacyDatabaseConnectionChecker {
             logger.error("Error al conectar a la {}: {}", dbName, e.getMessage());
         }
     }
-
 }
